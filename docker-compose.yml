@@ -1,0 +1,11 @@
+version: '3.5'
+services:
+  covid19-bot:
+    image: covid19-bot
+    container_name: covid19-bot
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - './data:/srv/covid19-bot/data'
