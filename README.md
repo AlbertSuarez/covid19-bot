@@ -40,7 +40,14 @@ To run this script, please execute the following from the root directory:
   pip3 install -r requirements.lock
   ```
 
-3. Set up [Twitter API](https://developer.twitter.com/) account
+3. Set up [Twitter API](https://developer.twitter.com/) account creating the .env file. This file must have this structure (without the brackets):
+
+  ```
+  TWITTER_CONSUMER_KEY={TWITTER_CONSUMER_KEY}
+  TWITTER_CONSUMER_SECRET={TWITTER_CONSUMER_SECRET}
+  TWITTER_ACCESS_TOKEN_KEY={TWITTER_ACCESS_TOKEN_KEY}
+  TWITTER_ACCESS_TOKEN_SECRET={TWITTER_ACCESS_TOKEN_SECRET}
+  ```
 
 4. Run the script as a Python module
 

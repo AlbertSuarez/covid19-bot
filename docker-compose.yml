@@ -3,6 +3,8 @@ services:
   covid19-bot:
     image: covid19-bot
     container_name: covid19-bot
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: Dockerfile
