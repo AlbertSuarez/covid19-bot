@@ -14,23 +14,30 @@ URL_BASE = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/css
 
 # Time
 TIME_BETWEEN_RESOURCES = 15
+TIME_BETWEEN_TWEETS = 3
 
 # Resources
 DATA_FOLDER = 'data'
+DATA_CONFIRMED = 'Confirmed'
+DATA_DEATHS = 'Deaths'
+DATA_RECOVERED = 'Recovered'
 RESOURCES = [
     {
-        'name': 'Confirmed',
-        'data_url': f'{URL_BASE}/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv',
-        'data_path': f'{DATA_FOLDER}/confirmed.json'
+        'name': DATA_CONFIRMED,
+        'data_url': f'{URL_BASE}/csse_covid_19_time_series/time_series_19-covid-{DATA_CONFIRMED}.csv',
+        'data_path': f'{DATA_FOLDER}/{DATA_CONFIRMED.lower()}.json',
+        'icon': '🟡'
     },
     {
-        'name': 'Deaths',
-        'data_url': f'{URL_BASE}/csse_covid_19_time_series/time_series_19-covid-Deaths.csv',
-        'data_path': f'{DATA_FOLDER}/deaths.json'
+        'name': DATA_DEATHS,
+        'data_url': f'{URL_BASE}/csse_covid_19_time_series/time_series_19-covid-{DATA_DEATHS}.csv',
+        'data_path': f'{DATA_FOLDER}/{DATA_DEATHS.lower()}.json',
+        'icon': '🔴'
     },
     {
-        'name': 'Recovered',
-        'data_url': f'{URL_BASE}/csse_covid_19_time_series/time_series_19-covid-Recovered.csv',
-        'data_path': f'{DATA_FOLDER}/recovered.json'
+        'name': DATA_RECOVERED,
+        'data_url': f'{URL_BASE}/csse_covid_19_time_series/time_series_19-covid-{DATA_RECOVERED}.csv',
+        'data_path': f'{DATA_FOLDER}/{DATA_RECOVERED.lower()}.json',
+        'icon': '🟢'
     }
 ]
