@@ -54,25 +54,29 @@ def run():
     Main function in order to process a new iteration of the Twitter bot.
     :return: Iteration done.
     """
-    for i, item in enumerate(RESOURCES):
-        item_name = item['name']
-        log.info(f'{i + 1}/{len(RESOURCES)} Processing {item_name}...')
-        results = retriever.get_last_update(item['data_url'])
-        if results is not None:
-            item_data_path = item['data_path']
-            item_data_path_exists = os.path.isfile(item_data_path)
-            # Get old results if they exist
-            old_results = dict()
-            if item_data_path_exists:
-                with open(item_data_path, 'r') as item_data_file:
-                    old_results = json.load(item_data_file)
-            # Save latest results
-            with open(item_data_path, 'w') as item_data_file:
-                json.dump(results, item_data_file)
-            # Check for differences if it did not exist before
-            if item_data_path_exists:
-                diff_results = list(dictdiffer.diff(results, old_results))
-                for j, diff_tuple in enumerate(diff_results):
-                    log.info(f'{j + 1}/{len(diff_results)} New changes found: [{diff_tuple}]')
-                    _notify_changes(diff_tuple, item_name, item['icon'], results)
-        time.sleep(TIME_BETWEEN_RESOURCES)
+    try:
+        for i, item in enumerate(RESOURCES):
+            item_name = item['name']
+            log.info(f'{i + 1}/{len(RESOURCES)} Processing {item_name}...')
+            results = retriever.get_last_update(item['data_url'])
+            if results is not None:
+                item_data_path = item['data_path']
+                item_data_path_exists = os.path.isfile(item_data_path)
+                # Get old results if they exist
+                old_results = dict()
+                if item_data_path_exists:
+                    with open(item_data_path, 'r') as item_data_file:
+                        old_results = json.load(item_data_file)
+                # Save latest results
+                with open(item_data_path, 'w') as item_data_file:
+                    json.dump(results, item_data_file)
+                # Check for differences if it did not exist before
+                if item_data_path_exists:
+                    diff_results = list(dictdiffer.diff(results, old_results))
+                    for j, diff_tuple in enumerate(diff_results):
+                        log.info(f'{j + 1}/{len(diff_results)} New changes found: [{diff_tuple}]')
+                        _notify_changes(diff_tuple, item_name, item['icon'], results)
+            time.sleep(TIME_BETWEEN_RESOURCES)
+    except Exception as e:
+        log.error(f'Unexpected error: [{e}]')
+        log.exception(e)
