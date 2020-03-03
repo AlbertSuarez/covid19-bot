@@ -1,3 +1,6 @@
+import random
+
+
 # Debug
 DEBUG = False
 
@@ -41,3 +44,89 @@ RESOURCES = [
         'icon': '🟢'
     }
 ]
+
+# Twitter
+HASHTAG_LIST = '#coronavirus #covid19'
+
+# Icons
+ICON_UP = '⬆️'
+ICON_DOWN = '⬇️'
+
+# Flags
+FLAG_DEFAULT = random.choice(['🌍', '🌎', '🌎'])
+FLAGS = {
+    'Armenia': '🇦🇲',
+    'Russia': '🇷🇺',
+    'Monaco': '🇲🇨',
+    'South Korea': '🇰🇷',
+    'Ecuador': '🇪🇨',
+    'Lebanon': '🇱🇧',
+    'Spain': '🇪🇸',
+    'US': '🇺🇸',
+    'Switzerland': '🇨🇭',
+    'Saudi Arabia': '🇸🇦',
+    'Israel': '🇮🇱',
+    'Italy': '🇮🇹',
+    'Canada': '🇨🇦',
+    'Singapore': '🇸🇬',
+    'Afghanistan': '🇦🇫',
+    'India': '🇮🇳',
+    'Croatia': '🇭🇷',
+    'Norway': '🇳🇴',
+    'Denmark': '🇩🇰',
+    'Senegal': '🇸🇳',
+    'Macau': '🇲🇴',
+    'Latvia': '🇱🇻',
+    'Belarus': '🇧🇾',
+    'North Macedonia': '🇲🇰',
+    'Sri Lanka': '🇱🇰',
+    'UK': '🇬🇧',
+    'Romania': '🇷🇴',
+    'Estonia': '🇪🇪',
+    'Dominican Republic': '🇩🇴',
+    'Azerbaijan': '🇦🇿',
+    'Indonesia': '🇮🇩',
+    'Brazil': '🇧🇷',
+    'Ireland': '🇮🇪',
+    'Georgia': '🇬🇪',
+    'Japan': '🇯🇵',
+    'Pakistan': '🇵🇰',
+    'Cambodia': '🇰🇭',
+    'Iceland': '🇮🇸',
+    'France': '🇫🇷',
+    'Malaysia': '🇲🇾',
+    'Austria': '🇦🇹',
+    'Nigeria': '🇳🇬',
+    'Germany': '🇩🇪',
+    'Bahrain': '🇧🇭',
+    'San Marino': '🇸🇲',
+    'Qatar': '🇶🇦',
+    'Lithuania': '🇱🇹',
+    'Mainland China': '🇨🇳',
+    'Philippines': '🇵🇭',
+    'Oman': '🇴🇲',
+    'Algeria': '🇩🇿',
+    'United Arab Emirates': '🇦🇪',
+    'Vietnam': '🇻🇳',
+    'Morocco': '🇲🇦',
+    'Iraq': '🇮🇶',
+    'Kuwait': '🇰🇼',
+    'Belgium': '🇧🇪',
+    'Hong Kong': '🇭🇰',
+    'Andorra': '🇦🇩',
+    'Finland': '🇫🇮',
+    'Netherlands': '🇳🇱',
+    'Luxembourg': '🇱🇺',
+    'Czech Republic': '🇨🇿',
+    'Thailand': '🇹🇭',
+    'Portugal': '🇵🇹',
+    'Iran': '🇮🇷',
+    'Egypt': '🇪🇬',
+    'Sweden': '🇸🇪',
+    'New Zealand': '🇳🇿',
+    'Taiwan': '🇹🇼',
+    'Australia': '🇦🇺',
+    'Greece': '🇬🇷',
+    'Mexico': '🇲🇽',
+    'Nepal': '🇳🇵'
+}

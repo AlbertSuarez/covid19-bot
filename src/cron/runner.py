@@ -4,7 +4,8 @@ import time
 
 import dictdiffer
 
-from src.config import RESOURCES, TIME_BETWEEN_RESOURCES, DATA_CONFIRMED, DATA_DEATHS, DATA_RECOVERED
+from src.config import RESOURCES, TIME_BETWEEN_RESOURCES, DATA_CONFIRMED, DATA_DEATHS, DATA_RECOVERED, FLAGS, \
+    FLAG_DEFAULT, HASHTAG_LIST, ICON_UP, ICON_DOWN
 from src.helper import log
 from src.johns_hopkins import retriever
 from src.twitter import api
@@ -20,33 +21,62 @@ def _notify_changes(diff_tuple, resource_type, icon, results):
     :return: Changes notified.
     """
     message_list = list()
+    total_worldwide = sum(results.values())
     if diff_tuple[0] == 'change':
-        change_diff = diff_tuple[2][0] - diff_tuple[2][1]
-        change_place = diff_tuple[1]
-        total = results[change_place]
-        if change_diff > 0:
+        number = diff_tuple[2][1] - diff_tuple[2][0]
+        place = diff_tuple[1]
+        total = results[place]
+        flag = FLAGS.get(place.split(', ')[-1], FLAG_DEFAULT)
+        if number > 0:
             if resource_type == DATA_CONFIRMED:
-                message_list.append(f'{icon} {change_diff} new confirmed cases in {change_place} totaling {total}.')
+                message_list.append(
+                    f'{icon} {ICON_UP}  {abs(number):,} new confirmed case(s) in {place} {flag}  totaling {total:,} '
+                    f'in this place. Already {total_worldwide:,} worldwide. {HASHTAG_LIST}')
             elif resource_type == DATA_DEATHS:
-                message_list.append(f'{icon} {change_diff} new deaths confirmed in {change_place} totaling {total}.')
+                message_list.append(
+                    f'{icon} {ICON_UP}  {abs(number):,} new death(s) confirmed in {place} {flag}  totaling {total:,} '
+                    f'in this place. Already {total_worldwide:,} worldwide. {HASHTAG_LIST}'
+                )
             elif resource_type == DATA_RECOVERED:
-                message_list.append(f'{icon} {change_diff} could recover in {change_place} totaling {total}.')
-        elif change_diff < 0:
+                message_list.append(
+                    f'{icon} {ICON_UP}  {abs(number):,} could recover in {place} {flag}  totaling {total:,} '
+                    f'in this place. Already {total_worldwide:,} worldwide. {HASHTAG_LIST}'
+                )
+        elif number < 0:
             if resource_type == DATA_CONFIRMED:
-                message_list.append(f'{icon} Confirmed cases have decreased in {change_diff} in {change_place}.')
+                message_list.append(
+                    f'{icon} {ICON_DOWN}  Confirmed cases have decreased in {abs(number):,} in {place} {flag}  '
+                    f'totaling {total:,} in this place. Already {total_worldwide:,} worldwide. {HASHTAG_LIST}'
+                )
             elif resource_type == DATA_DEATHS:
-                message_list.append(f'{icon} Deaths have decreased in {change_diff} in {change_place}.')
+                message_list.append(
+                    f'{icon} {ICON_DOWN}  Deaths have decreased in {abs(number):,} in {place} {flag}  '
+                    f'totaling {total:,} in this place. Already {total_worldwide:,} worldwide. {HASHTAG_LIST}'
+                )
             elif resource_type == DATA_RECOVERED:
-                message_list.append(f'{icon} Recovered scenarios have decreased in {change_diff} in {change_place}.')
+                message_list.append(
+                    f'{icon} {ICON_DOWN}  Recovered cases have decreased in {abs(number):,} in {place} {flag}  '
+                    f'totaling {total:,} in this place. Already {total_worldwide:,} worldwide. {HASHTAG_LIST}'
+                )
     elif diff_tuple[0] == 'add':
         for place, number in diff_tuple[2]:
             if number > 0:
+                flag = FLAGS.get(place.split(', ')[-1], FLAG_DEFAULT)
                 if resource_type == DATA_CONFIRMED:
-                    message_list.append(f'{icon} First {number} confirmed cases in {place}.')
+                    message_list.append(
+                        f'{icon} {ICON_UP}  First {number:,} confirmed case(s) in {place} {flag}. '
+                        f'Already {total_worldwide:,} worldwide. {HASHTAG_LIST}'
+                    )
                 elif resource_type == DATA_DEATHS:
-                    message_list.append(f'{icon} First {number} deaths in {place}.')
+                    message_list.append(
+                        f'{icon} {ICON_UP}  First {number:,} death(s) in {place} {flag}. '
+                        f'Already {total_worldwide:,} worldwide. {HASHTAG_LIST}'
+                    )
                 elif resource_type == DATA_RECOVERED:
-                    message_list.append(f'{icon} First {number} recovered cases in {place}.')
+                    message_list.append(
+                        f'{icon} {ICON_UP}  First {number:,} recovered case(s) in {place} {flag}. '
+                        f'Already {total_worldwide:,} worldwide. {HASHTAG_LIST}'
+                    )
     api.tweet(message_list)
 
 
