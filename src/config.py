@@ -14,7 +14,7 @@ URL_BASE = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/css
 
 # Time
 TIME_BETWEEN_RESOURCES = 15
-TIME_BETWEEN_TWEETS = 3
+TIME_BETWEEN_TWEETS = 300
 
 # Resources
 DATA_FOLDER = 'data'
