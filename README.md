@@ -20,8 +20,9 @@ Real time data is being retrieved from the [Novel Coronavirus (COVID-19) Cases r
 This project is using Python3.7. All these requirements have been specified in the `requirements.lock` file.
 
 1. [Requests](https://2.python-requests.org/en/master/): used for retrieving the HTML content of a website.
-2. [APScheduler](https://apscheduler.readthedocs.io/en/stable/): used for scheduling jobs in a certain time.
-3. [Twitter](https://python-twitter.readthedocs.io/en/latest/): used for posting tweets.
+2. [Dictdiffer](https://dictdiffer.readthedocs.io/en/latest/): used for checking data differences easier.
+3. [APScheduler](https://apscheduler.readthedocs.io/en/stable/): used for scheduling jobs in a certain time.
+4. [Twitter](https://python-twitter.readthedocs.io/en/latest/): used for posting tweets.
 
 ## Recommendations
 
