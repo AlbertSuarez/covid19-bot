@@ -23,13 +23,14 @@ def _notify_changes(diff_tuple, resource_type, icon, results):
     if diff_tuple[0] == 'change':
         change_diff = diff_tuple[2][0] - diff_tuple[2][1]
         change_place = diff_tuple[1]
+        total = results[change_place]
         if change_diff > 0:
             if resource_type == DATA_CONFIRMED:
-                message_list.append(f'{icon} {change_diff} new confirmed cases in {change_place}.')
+                message_list.append(f'{icon} {change_diff} new confirmed cases in {change_place} totaling {total}.')
             elif resource_type == DATA_DEATHS:
-                message_list.append(f'{icon} {change_diff} new deaths confirmed in {change_place}.')
+                message_list.append(f'{icon} {change_diff} new deaths confirmed in {change_place} totaling {total}.')
             elif resource_type == DATA_RECOVERED:
-                message_list.append(f'{icon} {change_diff} could recover in {change_place}.')
+                message_list.append(f'{icon} {change_diff} could recover in {change_place} totaling {total}.')
         elif change_diff < 0:
             if resource_type == DATA_CONFIRMED:
                 message_list.append(f'{icon} Confirmed cases have decreased in {change_diff} in {change_place}.')
