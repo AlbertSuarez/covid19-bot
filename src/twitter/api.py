@@ -2,7 +2,7 @@ import time
 # noinspection PyPackageRequirements
 import twitter
 
-from src.config import TIME_BETWEEN_TWEETS
+from src.config import TIME_BETWEEN_TWEETS, DEBUG
 from src.helper import log, env
 
 
@@ -22,5 +22,6 @@ def tweet(message_list):
     """
     for message in message_list:
         log.info(message)
-        api.PostUpdate(message)
+        if not DEBUG:
+            api.PostUpdate(message)
         time.sleep(TIME_BETWEEN_TWEETS)
