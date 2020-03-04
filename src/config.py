@@ -6,7 +6,7 @@ DEBUG = False
 
 # Scheduler
 MAX_INSTANCES = 1
-GRACE_TIME = 3600
+GRACE_TIME = 1 * 3600  # 1 hour
 
 # Data URLs
 DATA_ATTEMPTS = 3
@@ -17,7 +17,7 @@ URL_BASE = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/css
 
 # Time
 TIME_BETWEEN_RESOURCES = 15
-TIME_BETWEEN_TWEETS = 300
+TIME_BETWEEN_TWEETS = 10 * 60  # 10 minutes
 
 # Resources
 DATA_FOLDER = 'data'
