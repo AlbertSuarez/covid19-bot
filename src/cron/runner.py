@@ -23,7 +23,7 @@ def _notify_changes(diff_tuple, resource_type, icon, results):
     message_list = list()
     total_worldwide = sum(results.values())
     if diff_tuple[0] == 'change':
-        number = diff_tuple[2][1] - diff_tuple[2][0]
+        number = diff_tuple[2][0] - diff_tuple[2][1]
         place = diff_tuple[1]
         total = results[place]
         flag = FLAGS.get(place.split(', ')[-1], FLAG_DEFAULT)
