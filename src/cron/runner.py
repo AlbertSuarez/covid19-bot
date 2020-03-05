@@ -11,22 +11,23 @@ from src.johns_hopkins import retriever
 from src.twitter import api
 
 
-def _notify_changes(diff_tuple, resource_type, icon, results):
+def _notify_changes(diff_tuple, resource_type, icon, results, total_worldwide):
     """
     Generate sentence notifying the change and publishing to Twitter.
     :param diff_tuple: Changes tuple.
     :param resource_type: Type of resource.
     :param icon: Icon to add at the beginning of the message.
     :param results: All results updated.
-    :return: Changes notified.
+    :param total_worldwide: Amount of total cases before notifying it.
+    :return: Changes notified and total worldwide updated.
     """
     message_list = list()
-    total_worldwide = sum(results.values())
     if diff_tuple[0] == 'change':
         number = diff_tuple[2][0] - diff_tuple[2][1]
         place = diff_tuple[1]
         total = results[place]
         flag = FLAGS.get(place.split(', ')[-1], FLAG_DEFAULT)
+        total_worldwide += number
         if number > 0:
             if resource_type == DATA_CONFIRMED:
                 message_list.append(
@@ -61,6 +62,7 @@ def _notify_changes(diff_tuple, resource_type, icon, results):
     elif diff_tuple[0] == 'add':
         for place, number in diff_tuple[2]:
             if number > 0:
+                total_worldwide += number
                 flag = FLAGS.get(place.split(', ')[-1], FLAG_DEFAULT)
                 if resource_type == DATA_CONFIRMED:
                     message_list.append(
@@ -78,6 +80,7 @@ def _notify_changes(diff_tuple, resource_type, icon, results):
                         f'Already {total_worldwide:,} worldwide. {HASHTAG_LIST}'
                     )
     api.tweet(message_list)
+    return total_worldwide
 
 
 def run():
@@ -103,10 +106,11 @@ def run():
                     json.dump(results, item_data_file)
                 # Check for differences if it did not exist before
                 if item_data_path_exists:
+                    total_worldwide = sum(old_results.values())
                     diff_results = list(dictdiffer.diff(results, old_results))
                     for j, diff_tuple in enumerate(diff_results):
                         log.info(f'{j + 1}/{len(diff_results)} New changes found: [{diff_tuple}]')
-                        _notify_changes(diff_tuple, item_name, item['icon'], results)
+                        total_worldwide = _notify_changes(diff_tuple, item_name, item['icon'], results, total_worldwide)
             time.sleep(TIME_BETWEEN_RESOURCES)
     except Exception as e:
         log.error(f'Unexpected error: [{e}]')
