@@ -40,7 +40,7 @@ def _notify_changes(diff_tuple, resource_type, icon, results, total_worldwide):
                 )
             elif resource_type == DATA_RECOVERED:
                 message_list.append(
-                    f'{icon} {ICON_UP}  {abs(number):,} could recover in {place} {flag}  totaling {total:,} '
+                    f'{icon} {ICON_UP}  {abs(number):,} new recoveries in {place} {flag}  totaling {total:,} '
                     f'in this place. Already {total_worldwide:,} worldwide. {HASHTAG_LIST}'
                 )
         elif number < 0:
