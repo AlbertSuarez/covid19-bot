@@ -8,7 +8,8 @@ from src.helper import log
 scheduler = BlockingScheduler()
 
 
-@scheduler.scheduled_job('cron', hour='*', minute=0, max_instances=MAX_INSTANCES, misfire_grace_time=GRACE_TIME)
+@scheduler.scheduled_job('cron', hour='*', minute='0,10,20,30,40,50',
+                         max_instances=MAX_INSTANCES, misfire_grace_time=GRACE_TIME)
 def run():
     """
     Main function for running the bot.
