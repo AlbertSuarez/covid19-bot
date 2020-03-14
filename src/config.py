@@ -19,7 +19,15 @@ URL_BASE = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/css
 TIME_BETWEEN_RESOURCES = 15
 TIME_BETWEEN_TWEETS = 10 * 60  # 10 minutes
 
-# Resources
+# Scrapping
+SCRAPE_PROXY = 'socks5://127.0.0.1:9050'
+SCRAPE_RTD_MINIMUM = 0.1
+SCRAPE_RTD_MAXIMUM = 0.5
+SCRAPE_RETRIES_AMOUNT = 10
+SCRAPE_RTD_ERROR_MINIMUM = 0.5
+SCRAPE_RTD_ERROR_MAXIMUM = 1
+
+# Resources - Johns Hopkins
 DATA_FOLDER = 'data'
 DATA_CONFIRMED = 'Confirmed'
 DATA_DEATHS = 'Deaths'
@@ -44,6 +52,9 @@ RESOURCES = [
         'icon': '🟢'
     }
 ]
+
+# Resources - Worldometers
+WORLDOMETERS_URL = 'https://www.worldometers.info/coronavirus/'
 
 # Twitter
 HASHTAG_LIST = '#coronavirus #covid19'
