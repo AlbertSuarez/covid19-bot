@@ -14,7 +14,6 @@ TIME_BETWEEN_TWEETS = 5 * 60
 
 # Scrapping
 TOR_ENABLE = True
-IP_ECHO_ENDPOINT = 'http://ipecho.net/plain'
 HTTP_PROXY = 'socks5://covid-bot-tor:9050'
 SCRAPE_RETRIES_AMOUNT = 10
 SCRAPE_RTD_ERROR_MINIMUM = 3

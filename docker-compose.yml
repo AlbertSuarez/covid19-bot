@@ -17,8 +17,7 @@ services:
 
   covid19-bot-tor:
     image: dperson/torproxy
-    container_name: covid19-bot
+    container_name: covid19-bot-tor
     ports:
       - 8118:8118
       - 9050:9050
-      - 9051:9051
