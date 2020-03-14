@@ -13,9 +13,8 @@ if __name__ == '__main__':
         else:
             log.info('Running jobs manually since DEBUG is enabled.')
             while True:
-                time.sleep(5)
-                scheduler.run()
                 time.sleep(30)
+                scheduler.run()
 
     except Exception as e:
         log.error(f'Unexpected error {e} in Covid-19')
