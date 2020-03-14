@@ -1,15 +1,39 @@
 import random
 import time
 import requests
+import telnetlib
+
 from bs4 import BeautifulSoup
-
 from fake_useragent import UserAgent
-from stem import Signal
-from stem.control import Controller
 
-from src.config import SCRAPE_RETRIES_AMOUNT, SCRAPE_PROXY, SCRAPE_RTD_ERROR_MINIMUM, SCRAPE_RTD_ERROR_MAXIMUM, \
-    WORLDOMETERS_URL, TOR_ENABLE
+from src.config import SCRAPE_RETRIES_AMOUNT, SCRAPE_RTD_ERROR_MINIMUM, SCRAPE_RTD_ERROR_MAXIMUM, \
+    WORLDOMETERS_URL, TOR_ENABLE, IP_ECHO_ENDPOINT, HTTP_PROXY
 from src.helper import log
+
+
+def __get_ip():
+    return requests.get(IP_ECHO_ENDPOINT, proxies={'http': HTTP_PROXY}).text
+
+
+def __request_ip_change():
+    tn = telnetlib.Telnet('covid19-bot-tor', 9051)
+    tn.read_until("Escape character is '^]'.", 2)
+    tn.write('AUTHENTICATE ""\r\n')
+    tn.read_until('250 OK', 2)
+    tn.write('signal NEWNYM\r\n')
+    tn.read_until('250 OK', 2)
+    tn.write('quit\r\n')
+    tn.close()
+
+
+def __wait_for_ip_confirmation(ip_address):
+    while True:
+        new_ip_address = __get_ip()
+        if new_ip_address == ip_address:
+            time.sleep(1)
+        else:
+            log.info(f'New IP address allocated: [{new_ip_address}]')
+            break
 
 
 def _get_html(url):
@@ -18,14 +42,14 @@ def _get_html(url):
     :param url: URL to retrieve.
     :return: HTML content formatted as String, None if there was an error.
     """
+    if TOR_ENABLE:
+        ip_address = __get_ip()
+        log.info(f'Current IP address: [{ip_address}]')
+        __request_ip_change()
+        __wait_for_ip_confirmation(ip_address)
     for i in range(0, SCRAPE_RETRIES_AMOUNT):
         try:
-            proxies = {}
-            if TOR_ENABLE:
-                with Controller.from_port(port=9051) as c:
-                    c.authenticate()
-                    c.signal(Signal.NEWNYM)
-                proxies = {'http': SCRAPE_PROXY, 'https': SCRAPE_PROXY}
+            proxies = {'http': HTTP_PROXY} if TOR_ENABLE else {}
             headers = {'User-Agent': UserAgent().random}
             response = requests.get(url, proxies=proxies, headers=headers)
             assert response.ok
