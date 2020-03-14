@@ -11,3 +11,4 @@ services:
     restart: always
     volumes:
       - './data:/srv/covid19-bot/data'
+      - './tor:/srv/covid19-bot/tor'

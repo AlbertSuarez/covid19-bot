@@ -95,38 +95,39 @@ def run():
     try:
         resources_list = [DATA_CONFIRMED, DATA_DEATHS, DATA_RECOVERED]
         confirmed_results, deaths_results, recovered_results = retriever.get_last_update()
-        for i, item_name in enumerate(resources_list):
-            log.info(f'{i + 1}/{len(resources_list)} Processing {item_name}...')
-            # Get results
-            results = None
-            if item_name == DATA_CONFIRMED:
-                results = confirmed_results
-            elif item_name == DATA_DEATHS:
-                results = deaths_results
-            elif item_name == DATA_RECOVERED:
-                results = recovered_results
-            # Process
-            if results is not None:
-                item_data_path = DATA_PATH_DICT[item_name]
-                item_data_path_exists = os.path.isfile(item_data_path)
-                # Get old results if they exist
-                old_results = dict()
-                if item_data_path_exists:
-                    with open(item_data_path, 'r') as item_data_file:
-                        old_results = json.load(item_data_file)
-                # Save latest results
-                with open(item_data_path, 'w') as item_data_file:
-                    json.dump(results, item_data_file)
-                # Check for differences if it did not exist before
-                if item_data_path_exists:
-                    total_worldwide = sum(old_results.values())
-                    diff_results = list(dictdiffer.diff(results, old_results))
-                    for j, diff_tuple in enumerate(diff_results):
-                        log.info(f'{j + 1}/{len(diff_results)} New changes found: [{diff_tuple}]')
-                        total_worldwide = _notify_changes(
-                            diff_tuple, item_name, ICON_DICT[item_name], results, total_worldwide
-                        )
-            time.sleep(TIME_BETWEEN_RESOURCES)
+        if all([confirmed_results, deaths_results, recovered_results]):
+            for i, item_name in enumerate(resources_list):
+                log.info(f'{i + 1}/{len(resources_list)} Processing {item_name}...')
+                # Get results
+                results = None
+                if item_name == DATA_CONFIRMED:
+                    results = confirmed_results
+                elif item_name == DATA_DEATHS:
+                    results = deaths_results
+                elif item_name == DATA_RECOVERED:
+                    results = recovered_results
+                # Process
+                if results is not None:
+                    item_data_path = DATA_PATH_DICT[item_name]
+                    item_data_path_exists = os.path.isfile(item_data_path)
+                    # Get old results if they exist
+                    old_results = dict()
+                    if item_data_path_exists:
+                        with open(item_data_path, 'r') as item_data_file:
+                            old_results = json.load(item_data_file)
+                    # Save latest results
+                    with open(item_data_path, 'w') as item_data_file:
+                        json.dump(results, item_data_file)
+                    # Check for differences if it did not exist before
+                    if item_data_path_exists:
+                        total_worldwide = sum(old_results.values())
+                        diff_results = list(dictdiffer.diff(results, old_results))
+                        for j, diff_tuple in enumerate(diff_results):
+                            log.info(f'{j + 1}/{len(diff_results)} New changes found: [{diff_tuple}]')
+                            total_worldwide = _notify_changes(
+                                diff_tuple, item_name, ICON_DICT[item_name], results, total_worldwide
+                            )
+                time.sleep(TIME_BETWEEN_RESOURCES)
     except Exception as e:
         log.error(f'Unexpected error: [{e}]')
         log.exception(e)

@@ -7,8 +7,8 @@ from fake_useragent import UserAgent
 from stem import Signal
 from stem.control import Controller
 
-from src.config import SCRAPE_RTD_MINIMUM, SCRAPE_RTD_MAXIMUM, SCRAPE_RETRIES_AMOUNT, SCRAPE_PROXY, \
-    SCRAPE_RTD_ERROR_MINIMUM, SCRAPE_RTD_ERROR_MAXIMUM, WORLDOMETERS_URL
+from src.config import SCRAPE_RETRIES_AMOUNT, SCRAPE_PROXY, SCRAPE_RTD_ERROR_MINIMUM, SCRAPE_RTD_ERROR_MAXIMUM, \
+    WORLDOMETERS_URL
 from src.helper import log
 
 
@@ -18,7 +18,6 @@ def _get_html(url):
     :param url: URL to retrieve.
     :return: HTML content formatted as String, None if there was an error.
     """
-    time.sleep(random.uniform(SCRAPE_RTD_MINIMUM, SCRAPE_RTD_MAXIMUM))  # RTD
     for i in range(0, SCRAPE_RETRIES_AMOUNT):
         try:
             with Controller.from_port(port=9051) as c:
@@ -32,8 +31,9 @@ def _get_html(url):
             return html_content
         except Exception as e:
             if i == SCRAPE_RETRIES_AMOUNT - 1:
-                print(f'Unable to retrieve HTML from {url}: {e}')
+                log.error(f'Unable to retrieve HTML from {url}: {e}')
             else:
+                log.warn(f'Unable to retrieve HTML from {url} - Retry {i}: {e}')
                 time.sleep(random.uniform(SCRAPE_RTD_ERROR_MINIMUM, SCRAPE_RTD_ERROR_MAXIMUM))
     return None
 
