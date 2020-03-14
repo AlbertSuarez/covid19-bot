@@ -13,7 +13,7 @@
 
 ## Data source
 
-Real time data is being retrieved from the [Novel Coronavirus (COVID-19) Cases repository](https://github.com/CSSEGISandData/COVID-19), by [JHU CSSE](https://systems.jhu.edu/research/public-health/ncov/).
+Real time data is being retrieved from the [Worldometer website](https://www.worldometers.info/coronavirus/).
 
 ## Python requirements
 
@@ -23,6 +23,9 @@ This project is using Python3.7. All these requirements have been specified in t
 2. [Dictdiffer](https://dictdiffer.readthedocs.io/en/latest/): used for checking data differences easier.
 3. [APScheduler](https://apscheduler.readthedocs.io/en/stable/): used for scheduling jobs in a certain time.
 4. [Twitter](https://python-twitter.readthedocs.io/en/latest/): used for posting tweets.
+5. [BeautifulSoup](https://pypi.org/project/beautifulsoup4/): used for scraping an HTML content.
+6. [Tor](https://2019.www.torproject.org/docs/debian.html.en): used for making requests anonymous using other IPs.
+7. [Fake User-Agent](https://pypi.org/project/fake-useragent/): used for using random User-Agent's for every request.
 
 ## Recommendations
 
@@ -49,13 +52,7 @@ To run this script, please execute the following from the root directory:
   TWITTER_ACCESS_TOKEN_SECRET={TWITTER_ACCESS_TOKEN_SECRET}
   ```
 
-4. Run the script as a Python module
-
-  ```bash
-  python3 -m src
-  ```
-
-  or as a Docker container
+4. Run the script as a Docker container
 
   ```bash
   docker-compose up -d --build
