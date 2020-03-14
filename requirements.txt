@@ -1,4 +1,4 @@
-requests
+requests[socks]
 APScheduler
 python-twitter
 dictdiffer
