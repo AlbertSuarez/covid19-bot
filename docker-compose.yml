@@ -1,5 +1,6 @@
-version: '3.5'
+version: '3'
 services:
+
   covid19-bot:
     image: covid19-bot
     container_name: covid19-bot
@@ -11,4 +12,13 @@ services:
     restart: always
     volumes:
       - './data:/srv/covid19-bot/data'
-      - './tor:/srv/covid19-bot/tor'
+    links:
+      - covid19-bot-tor
+
+  covid19-bot-tor:
+    image: dperson/torproxy
+    container_name: covid19-bot
+    ports:
+      - 8118:8118
+      - 9050:9050
+      - 9051:9051
