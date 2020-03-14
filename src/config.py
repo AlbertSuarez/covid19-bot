@@ -6,7 +6,7 @@ DEBUG = False
 
 # Scheduler
 MAX_INSTANCES = 1
-GRACE_TIME = 1 * 3600  # 1 hour
+GRACE_TIME = 9 * 60  # 9 minutes
 
 # Time
 TIME_BETWEEN_RESOURCES = 15
