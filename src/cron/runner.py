@@ -4,7 +4,7 @@ import time
 
 import dictdiffer
 
-from src.config import RESOURCES, TIME_BETWEEN_RESOURCES, DATA_CONFIRMED, DATA_DEATHS, DATA_RECOVERED, FLAGS, \
+from src.config import JOHNS_HOPKINS_RESOURCES, TIME_BETWEEN_RESOURCES, DATA_CONFIRMED, DATA_DEATHS, DATA_RECOVERED, FLAGS, \
     FLAG_DEFAULT, HASHTAG_LIST, ICON_UP, ICON_DOWN
 from src.helper import log
 from src.johns_hopkins import retriever
@@ -89,9 +89,9 @@ def run():
     :return: Iteration done.
     """
     try:
-        for i, item in enumerate(RESOURCES):
+        for i, item in enumerate(JOHNS_HOPKINS_RESOURCES):
             item_name = item['name']
-            log.info(f'{i + 1}/{len(RESOURCES)} Processing {item_name}...')
+            log.info(f'{i + 1}/{len(JOHNS_HOPKINS_RESOURCES)} Processing {item_name}...')
             results = retriever.get_last_update(item['data_url'])
             if results is not None:
                 item_data_path = item['data_path']
