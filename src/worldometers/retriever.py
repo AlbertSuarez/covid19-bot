@@ -8,7 +8,7 @@ from stem import Signal
 from stem.control import Controller
 
 from src.config import SCRAPE_RETRIES_AMOUNT, SCRAPE_PROXY, SCRAPE_RTD_ERROR_MINIMUM, SCRAPE_RTD_ERROR_MAXIMUM, \
-    WORLDOMETERS_URL
+    WORLDOMETERS_URL, TOR_ENABLE
 from src.helper import log
 
 
@@ -20,10 +20,12 @@ def _get_html(url):
     """
     for i in range(0, SCRAPE_RETRIES_AMOUNT):
         try:
-            with Controller.from_port(port=9051) as c:
-                c.authenticate()
-                c.signal(Signal.NEWNYM)
-            proxies = {'http': SCRAPE_PROXY, 'https': SCRAPE_PROXY}
+            proxies = {}
+            if TOR_ENABLE:
+                with Controller.from_port(port=9051) as c:
+                    c.authenticate()
+                    c.signal(Signal.NEWNYM)
+                proxies = {'http': SCRAPE_PROXY, 'https': SCRAPE_PROXY}
             headers = {'User-Agent': UserAgent().random}
             response = requests.get(url, proxies=proxies, headers=headers)
             assert response.ok
