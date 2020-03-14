@@ -10,7 +10,7 @@ GRACE_TIME = 9 * 60  # 9 minutes
 
 # Time
 TIME_BETWEEN_RESOURCES = 15
-TIME_BETWEEN_TWEETS = 5 * 60
+TIME_BETWEEN_TWEETS = 1 * 60  # 1 minute
 
 # Scrapping
 TOR_ENABLE = True
