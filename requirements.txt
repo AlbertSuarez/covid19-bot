@@ -1,7 +1,6 @@
-requests[socks,security]
+requests
 APScheduler
 python-twitter
 dictdiffer
 beautifulsoup4
-stem
 fake_useragent
