@@ -44,7 +44,7 @@ def get_last_update():
     html_content = _get_html(WORLDOMETERS_URL)
     if html_content:
         soup = BeautifulSoup(html_content, 'html.parser')
-        table_countries = soup.findChildren('table', id='main_table_countries')
+        table_countries = soup.findChildren('table', id='main_table_countries_today')
         # Table
         if table_countries:
             body_list = table_countries[0].findChildren('tbody')
