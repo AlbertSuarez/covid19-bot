@@ -7,7 +7,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/AlbertSuarez/covid19-bot.svg)](https://GitHub.com/AlbertSuarez/covid19-bot/graphs/contributors/)
 [![GitHub license](https://img.shields.io/github/license/AlbertSuarez/covid19-bot.svg)](https://github.com/AlbertSuarez/covid19-bot/blob/master/LICENSE)
 
-[Twitter account](https://twitter.com/coronavid19_bot) | [Static repo website](https://asuarez.dev/covid19-bot/)
+[Twitter account](https://twitter.com/coronavid19_bot) | [Devpost project](https://devpost.com/software/covid19-bot) | [Static repo website](https://asuarez.dev/covid19-bot/)
 
 🤖 Real time Twitter bot notifying new confirmed Corona virus (CoVid-19) cases, deaths and recovered people by location.
 
